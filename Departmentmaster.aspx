@@ -1,11 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Hr/hr.master" AutoEventWireup="true" CodeFile="companymaster.aspx.cs" Inherits="Hr_companymaster" %>
-
-<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Hr/hr.master" AutoEventWireup="true" CodeFile="Departmentmaster.aspx.cs" Inherits="Hr_Departmentmaster" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-     <div id="page-wrapper">
+    <div id="page-wrapper">
 			<div class="main-page">
                 <div id="form1" class="forms validation">
                     <div class="form-grids row widget-shadow" data-example-id="basic-forms">
@@ -14,23 +12,16 @@
 						</div>
                         <div class="form-body" id="form">
                              <div class="col-md-12 form-group">
-                                  <label >Company name</label>  
+                                  <label >Department name</label>  
                                   <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control"></asp:TextBox>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
-                             ControlToValidate="TextBox1" ErrorMessage="company name is required" ValidationGroup="a"></asp:RequiredFieldValidator>
+                             ControlToValidate="TextBox1" ErrorMessage="Department name is required" ValidationGroup="a"></asp:RequiredFieldValidator>
                              </div>
-                            <div class="col-md-12 form-group">
-    <label >Company Shortcut</label>
-    <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control"></asp:TextBox>
-                                <cc1:FilteredTextBoxExtender ID="TextBox2_FilteredTextBoxExtender" runat="server" Enabled="True" FilterType="UppercaseLetters" TargetControlID="TextBox2">
-                                </cc1:FilteredTextBoxExtender>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
-                    ControlToValidate="TextBox2" ErrorMessage="enter company shortcut" ValidationGroup="a"></asp:RequiredFieldValidator>
-</div>
+                            
                             <div class="col-md-12 form-group">
                                  <asp:Button ID="Button1" runat="server" Text="Submit" Class=" btn btn-warning " onclick="Button1_Click" 
         Height="40px" Width="109px" ValidationGroup="a" />
-                                  &nbsp;<asp:Button ID="Button2" runat="server" Class=" btn btn-info " Text="Reset" OnClick="Button2_Click" ValidationGroup="a" />
+                                  &nbsp;<asp:Button ID="Button2" runat="server" Class=" btn btn-info " Text="Reset" OnClick="Button2_Click" />
                                 <br />
     <asp:Label ID="Label1" runat="server"></asp:Label>  
 <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -45,8 +36,8 @@
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" 
         onrowdeleting="GridView1_RowDeleting"  
         onselectedindexchanged="GridView1_SelectedIndexChanged" 
-        DataKeyNames="company_id" CellPadding="4" ForeColor="#333333" 
-        GridLines="None" Width="100%" Font-Size="10pt">
+        DataKeyNames="Depart_id" CellPadding="4" ForeColor="#333333" 
+        GridLines="None" Width="100%">
         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         <Columns>
              <asp:TemplateField ControlStyle-CssClass="" HeaderText="SN">
@@ -61,9 +52,8 @@
                                 HorizontalAlign="Left" />
                             <ItemStyle CssClass="" HorizontalAlign="Left" />
                         </asp:TemplateField> 
-            <asp:BoundField DataField="companyname" HeaderText="COMPANY NAME" />
-            <asp:BoundField DataField="companyshtct" HeaderText="COMPANY SHORTCUT" />
-          <%--  <asp:CommandField SelectText="Edit" ShowSelectButton="True" HeaderText="Edit" HeaderStyle-HorizontalAlign="Right"/>
+            <asp:BoundField DataField="Departmentnm" HeaderText="Department Name" />
+            <%--<asp:CommandField SelectText="Edit" ShowSelectButton="True" HeaderText="Edit" HeaderStyle-HorizontalAlign="Right"/>
             <asp:CommandField ShowDeleteButton="True" HeaderText="Action" HeaderStyle-HorizontalAlign="Left"/>--%>
             <asp:TemplateField  HeaderText="Edit">
                         <ItemTemplate>
@@ -106,13 +96,5 @@
                 </div>
                 </div>
          </div>
-
-
-
-    
-
-    
-
-    
 </asp:Content>
 
