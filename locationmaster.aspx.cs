@@ -31,13 +31,13 @@ public partial class Hr_locationmaster : System.Web.UI.Page
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
-        try {
-        DateTime crnttime = Convert.ToDateTime(TextBox3.Text);
-        TimeZoneInfo tzn = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
-        DateTime IndianTme = TimeZoneInfo.ConvertTime(crnttime, tzn);
-        string time1 = IndianTme.ToString("dd/MM/yyyy");
-        string mnth1 = IndianTme.ToString("MM");
-        string year1 = IndianTme.ToString("yyyy");
+        //try {
+        //DateTime crnttime = Convert.ToDateTime(TextBox3.Text);
+        //TimeZoneInfo tzn = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+        //DateTime IndianTme = TimeZoneInfo.ConvertTime(crnttime, tzn);
+        //string time1 = IndianTme.ToString("dd/MM/yyyy");
+        //string mnth1 = IndianTme.ToString("MM");
+        //string year1 = IndianTme.ToString("yyyy");
         if (Button1.Text == "update")
         {
             int idd = Convert.ToInt32(GridView1.SelectedValue);
@@ -45,18 +45,20 @@ public partial class Hr_locationmaster : System.Web.UI.Page
             {
                 string id1 = Request.QueryString["id"].ToString();
 
-                gl.update("locationmaster", "Location_name='" + TextBox2.Text + "',address='" + TextBox1.Text + "',phone='" + TextBox7.Text + "',emailid='" + TextBox8.Text + "',Land_no='" + TextBox9.Text + "',Date'" + TextBox3.Text + "'", "location_id", "'" + id1 + "'");
-
+                gl.update("locationmaster", "Location_name='" + TextBox2.Text + "',Locationshtct='" + TextBox4.Text + "',address='" + TextBox1.Text + "',phone='" + TextBox7.Text + "',emailid='" + TextBox8.Text + "',Land_no='" + TextBox9.Text + "'", "location_id", "'" + id1 + "'");
+                Label1.Text = "Updated successfully";
             }
             else
             {
-                gl.update("locationmaster", "Location_name='" + TextBox2.Text + "',address='" + TextBox1.Text + "',phone='" + TextBox7.Text + "',emailid='" + TextBox8.Text + "',Land_no='" + TextBox9.Text + "',Date'" + TextBox3.Text + "'", "location_id", "'" + idd + "'");
+                gl.update("locationmaster", "Location_name='" + TextBox2.Text + "',Locationshtct='" + TextBox4.Text + "',address='" + TextBox1.Text + "',phone='" + TextBox7.Text + "',emailid='" + TextBox8.Text + "',Land_no='" + TextBox9.Text + "'", "location_id", "'" + idd + "'");
+                Label1.Text = "Updated successfully";
             }
 
         }
         else
         {
-            gl.insert1("locationmaster", "Company_id, Location_name, Address, Phone, Emailid, Land_no, Date", "'" + DropDownList1.SelectedValue + "','" + TextBox2.Text + "','" + TextBox1.Text + "','" + TextBox7.Text + "','" + TextBox8.Text + "','" + TextBox9.Text + "','" + time1 + "'");
+            gl.insert1("locationmaster", "Company_id, Location_name, Locationshtct, Address, Phone, Emailid, Land_no, Date", "'" + DropDownList1.SelectedValue + "','" + TextBox2.Text + "','" + TextBox4.Text + "','" + TextBox1.Text + "','" + TextBox7.Text + "','" + TextBox8.Text + "','" + TextBox9.Text + "','" + TextBox3.Text + "'");
+            Label1.Text = "Submit successfully";
         }
         //gl.display("locationmaster", GridView1); 
         display();
@@ -66,11 +68,12 @@ public partial class Hr_locationmaster : System.Web.UI.Page
         TextBox8.Text = "";
         TextBox9.Text = "";
         TextBox3.Text = "";
+        TextBox4.Text = "";
         Button1.Text = "submit";
-        Label1.Text = "Submit successfully";
-        }
-        catch
-        { }
+       
+        //}
+        //catch
+        //{ }
     }
     protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -92,6 +95,7 @@ public partial class Hr_locationmaster : System.Web.UI.Page
             }
 
             TextBox2.Text = gl.ds.Tables[0].Rows[0]["Location_name"].ToString();
+            TextBox4.Text = gl.ds.Tables[0].Rows[0]["Locationshtct"].ToString();
             TextBox1.Text = gl.ds.Tables[0].Rows[0]["Address"].ToString();
             TextBox7.Text = gl.ds.Tables[0].Rows[0]["Phone"].ToString();
             TextBox8.Text = gl.ds.Tables[0].Rows[0]["Emailid"].ToString();
@@ -110,7 +114,8 @@ public partial class Hr_locationmaster : System.Web.UI.Page
         {
             int id1 = Convert.ToInt32(GridView1.DataKeys[e.RowIndex].Value);
             gl.delete("locationmaster", "location_id", "'" + id1 + "'");
-            gl.display("locationmaster", GridView1);
+            //gl.display("locationmaster", GridView1);
+            display();
         }
         catch
         { 
@@ -126,7 +131,7 @@ public partial class Hr_locationmaster : System.Web.UI.Page
     {
         try
         {
-            gl.query("SELECT dbo.companymaster.companyname, dbo.companymaster.company_id, dbo.locationmaster.location_id, dbo.locationmaster.Location_name,dbo.locationmaster.Address, dbo.locationmaster.Phone, dbo.locationmaster.Emailid, dbo.locationmaster.Land_no, dbo.locationmaster.Date FROM dbo.companymaster INNER JOIN dbo.locationmaster ON dbo.companymaster.company_id = dbo.locationmaster.Company_id");
+            gl.query("SELECT dbo.companymaster.companyname, dbo.companymaster.company_id, dbo.locationmaster.location_id, dbo.locationmaster.Location_name,dbo.locationmaster.Address, dbo.locationmaster.Phone, dbo.locationmaster.Emailid, dbo.locationmaster.Land_no, dbo.locationmaster.Date,dbo.locationmaster.Locationshtct FROM dbo.companymaster INNER JOIN dbo.locationmaster ON dbo.companymaster.company_id = dbo.locationmaster.Company_id order by companyname ASC");
             GridView1.DataSource = gl.ds;
             GridView1.DataBind();
         }
